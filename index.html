@@ -3,18 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>播放器</title>
+  <link rel="stylesheet" href="css/style.css">   <!-- 改动 1：引入样式 -->
 </head>
 <body>
   <h1>我的播放器</h1>
 
   <button id="btn">点我</button>
 
-  <script>
-    const btn = document.getElementById('btn');
+  <input type="file" id="picker" accept="audio/*">
+  <p id="name">还没选歌</p>
 
-    btn.addEventListener('click', () => {
-      console.log('点到了');
-    });
-  </script>
+  <script src="js/main.js" defer></script>       <!-- 改动 3：引入脚本 -->
 </body>
 </html>
