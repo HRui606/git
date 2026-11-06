@@ -1,18 +1,13 @@
 // ---- 1. 抓元素 ----
-const btn = document.getElementById('btn');
 const picker = document.getElementById('picker');
 const nameEl = document.getElementById('name');
 const audio = document.getElementById('audio');
+const playBtn = document.getElementById('playBtn');
 
 // ---- 2. 状态 ----
 let currentUrl = null;
 
-// ---- 台阶 1：按钮点击 ----
-btn.addEventListener('click', () => {
-  console.log('点到了');
-});
-
-// ---- 台阶 2 + 3：选文件 → 显示歌名 → 变成音频地址 ----
+// ---- 台阶 2 + 3 ----
 picker.addEventListener('change', () => {
   const file = picker.files[0];
   if (!file) return;
@@ -24,4 +19,13 @@ picker.addEventListener('change', () => {
   audio.src = currentUrl;
 
   console.log('音频地址：', audio.src);
+});
+
+// ---- 台阶 4 ----
+playBtn.addEventListener('click', () => {
+  if (!audio.src) {
+    console.log('还没选歌呢');
+    return;
+  }
+  audio.play();
 });
