@@ -29,3 +29,5 @@
 ## 开发记录
 
 按 10 个台阶迭代，从"页面出现标题"到"完整播放器"，每次迭代对应一个 commit 与 tag。
+
+在线演示：https://hrui606.github.io/music-player/
