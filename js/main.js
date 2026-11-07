@@ -9,6 +9,8 @@ const durationEl = document.getElementById('duration');
 
 // ---- 2. 状态 ----
 let currentUrl = null;
+let isSeeking = false;
+
 
 // ---- 台阶 2 + 3 ----
 picker.addEventListener('change', () => {
@@ -24,6 +26,7 @@ picker.addEventListener('change', () => {
   console.log('音频地址：', audio.src);
 });
 
+
 // ---- 台阶 4 ----
 playBtn.addEventListener('click', () => {
   if (!audio.src) {
@@ -37,10 +40,12 @@ playBtn.addEventListener('click', () => {
     audio.pause();
   }
 
+
 audio.addEventListener('play',  () => { playBtn.textContent = '暂停'; });
 audio.addEventListener('pause', () => { playBtn.textContent = '播放'; });
 audio.addEventListener('ended', () => { playBtn.textContent = '播放'; });
 });
+
 
 // 秒 → 03:45
 function formatTime(sec) {
@@ -50,14 +55,38 @@ function formatTime(sec) {
   return String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
 }
 
+
 // 元数据就绪 → 总时长
 audio.addEventListener('loadedmetadata', () => {
   seekBar.max = audio.duration;
   durationEl.textContent = formatTime(audio.duration);
 });
 
+
 // 播放中 → 进度
 audio.addEventListener('timeupdate', () => {
+  seekBar.value = audio.currentTime;
+  currentEl.textContent = formatTime(audio.currentTime);
+});
+
+
+// 拖动过程中（一直触发）
+seekBar.addEventListener('input', () => {
+  isSeeking = true;
+  currentEl.textContent = formatTime(Number(seekBar.value));
+});
+
+
+// 松手那一刻（只触发一次）
+seekBar.addEventListener('change', () => {
+  audio.currentTime = Number(seekBar.value);
+  isSeeking = false;
+});
+
+
+audio.addEventListener('timeupdate', () => {
+  if (isSeeking) return;   // ← 新增
+
   seekBar.value = audio.currentTime;
   currentEl.textContent = formatTime(audio.currentTime);
 });
