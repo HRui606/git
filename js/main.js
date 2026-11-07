@@ -27,5 +27,14 @@ playBtn.addEventListener('click', () => {
     console.log('还没选歌呢');
     return;
   }
-  audio.play();
+
+  if (audio.paused) {
+    audio.play();
+  } else {
+    audio.pause();
+  }
+  
+audio.addEventListener('play',  () => { playBtn.textContent = '暂停'; });
+audio.addEventListener('pause', () => { playBtn.textContent = '播放'; });
+audio.addEventListener('ended', () => { playBtn.textContent = '播放'; });
 });
