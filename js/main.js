@@ -6,6 +6,8 @@ const playBtn = document.getElementById('playBtn');
 const seekBar = document.getElementById('seekBar');
 const currentEl = document.getElementById('current');
 const durationEl = document.getElementById('duration');
+const volumeBar = document.getElementById('volumeBar');
+
 
 // ---- 2. 状态 ----
 let currentUrl = null;
@@ -89,4 +91,12 @@ audio.addEventListener('timeupdate', () => {
 
   seekBar.value = audio.currentTime;
   currentEl.textContent = formatTime(audio.currentTime);
+});
+
+
+// 页面加载时，让音量跟着滑块走
+audio.volume = Number(volumeBar.value);
+
+volumeBar.addEventListener('input', () => {
+  audio.volume = Number(volumeBar.value);
 });
